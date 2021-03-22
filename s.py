@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 from csv import DictWriter  
    
-URL = "https://turquoise.health/providers/armstrong-county-memorial/information"
+URL = "https://turquoise.health/providers/abbott-northwestern-hospital/information"
 r = requests.get(URL) 
 soup = BeautifulSoup(r.content, 'html5lib')
 c = 0
@@ -12,46 +12,49 @@ quote = {}
 for row in soup.findAll('div', attrs = {'class':'hospital-all-detail'}): 
     for j in row.findAll('ul'):
         for k in j.findAll('li'):
-            c = c  + 1
+            # c = c  + 1
             # print("count==> ",c)
-            # print("span length ",k)
+            print("para ",k.p.text)
             if len(k.span) == 1:
-                if c == 1:
+                if k.p.text == 'Name':
                     quote['Name'] = k.span.text
-                
-                elif c == 2:
+
+
+                elif k.p.text == 'ADDRESS':
                     quote['ADDRESS'] = k.span.text
-                elif c == 3:
-                    quote['Phone'] = k.span.text
                 
-                elif c == 4:
+                
+                elif k.p.text == 'Phone':
+                    quote['Phone'] = k.span.text
+
+               
+                elif k.p.text == 'MEDICARE PROVIDER ID':
                     quote['MEDICARE PROVIDER ID'] = k.span.text
                 
-                elif c == 5:
+                elif k.p.text == 'NATIONAL PROVIDER ID (NPI)':
                     quote['NATIONAL PROVIDER ID (NPI)'] =k.span.text
                 
-                elif c == 7:
+                elif k.p.text == 'PROVIDER TYPE':
                     quote['PROVIDER TYPE'] = k.span.text
                 
-                elif c == 8:
+                elif k.p.text == 'OWNERSHIP':
                     quote['OWNERSHIP'] = k.span.text
                 
-                elif c == 9:
+                elif k.p.text == 'BEDS':
                     quote['BEDS'] = k.span.text
                 
             else:
-                if c == 6:
+                # if c == 6:
+                if k.p.text == 'WEBSITE':
                     if  k.span.a['href'] != "":
                         quote['WEBSITE'] = k.span.a['href']
 
-                    else:
-                        quote['WEBSITE'] = "No link"
+                elif k.p.text == 'HEALTH SYSTEM AFFILIATION':
+                    quote['HEALTH SYSTEM AFFILIATION'] = k.span.a['href']
 
                    
                         
-                
-                else:
-                    quote['HEALTH SYSTEM AFFILIATION'] = k.span.a['href']
+              
         
 
 quotes.append(quote)
