@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 from csv import DictWriter  
    
-URL = "https://turquoise.health/providers/abbott-northwestern-hospital/information"
+URL = "https://turquoise.health/providers/sylvan-grove-hospital/information"
 r = requests.get(URL) 
 soup = BeautifulSoup(r.content, 'html5lib')
 c = 0
@@ -68,8 +68,8 @@ filename = 'hospital.csv'
 
 
 
-with open(filename, 'a', newline='') as f_object:
-    dictwriter_object = DictWriter(f_object, fieldnames = columnsName)
-    dictwriter_object.writerow(quotes[0])
+# with open(filename, 'a', newline='') as f_object:
+#     dictwriter_object = DictWriter(f_object, fieldnames = columnsName)
+#     dictwriter_object.writerow(quotes[0])
         
   
