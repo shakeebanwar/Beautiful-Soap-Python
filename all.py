@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 from csv import DictWriter  
 alllinks=[]  
-for i in range(1,67): 
+for i in range(2): 
     URL = f"https://turquoise.health/providers?page={i}"
     r = requests.get(URL) 
     soup = BeautifulSoup(r.content, 'html5lib')
